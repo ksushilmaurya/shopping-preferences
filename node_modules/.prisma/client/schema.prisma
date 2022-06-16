@@ -1,0 +1,28 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id      Int      @id @default(autoincrement())
+  fullName   String
+  email  String @unique
+  password String
+  dateOfBirth String
+  confirmEmailToken String?
+  passwordTokenExpiry DateTime?
+  resetPasswordToken String?
+  isActive Boolean    @default(false)
+  createdAt  DateTime   @default(now())
+}
+
+model ShoppingPref {
+  id      Int      @id @default(autoincrement())
+  preference String
+  userId  Int
+  createdAt  DateTime   @default(now())
+}

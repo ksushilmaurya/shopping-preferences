@@ -1,0 +1,267 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "operationId": "AuthController_login",
+        "summary": "Login user",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/loginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/users/signUp": {
+      "post": {
+        "operationId": "UsersController_create",
+        "summary": "Create a new user",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/users/verifyEmail": {
+      "get": {
+        "operationId": "UsersController_verifyEmail",
+        "summary": "Verify user email",
+        "parameters": [
+          {
+            "name": "token",
+            "required": true,
+            "in": "query",
+            "description": "Token of email verification",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/users/sendResetPasswordLink": {
+      "get": {
+        "operationId": "UsersController_sendResetPasswordLink",
+        "summary": "Send reset password link",
+        "parameters": [
+          {
+            "name": "email",
+            "required": true,
+            "in": "query",
+            "description": "Email to send password verification link",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/users/resetPassword": {
+      "post": {
+        "operationId": "UsersController_resetPassword",
+        "summary": "Reset Password",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "operationId": "UsersController_findOne",
+        "summary": "Get user details",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/shopping-pref": {
+      "post": {
+        "operationId": "ShoppingPrefController_create",
+        "summary": "Create shopping preferences",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateShoppingPrefDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "info": {
+    "title": "Shopping Experience",
+    "description": "The Shopping Experience Api Description",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "loginDto": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "Email of the user"
+          },
+          "password": {
+            "type": "string",
+            "description": "Password of the user"
+          }
+        },
+        "required": [
+          "username",
+          "password"
+        ]
+      },
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "description": "Name of the user"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email of the user"
+          },
+          "password": {
+            "type": "string",
+            "description": "Password of user"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "description": "Date of birth of user"
+          }
+        },
+        "required": [
+          "fullName",
+          "email",
+          "password",
+          "dateOfBirth"
+        ]
+      },
+      "ResetPasswordDto": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Reset password token"
+          },
+          "password": {
+            "type": "string",
+            "description": "New password"
+          }
+        },
+        "required": [
+          "token",
+          "password"
+        ]
+      },
+      "CreateShoppingPrefDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "number",
+            "description": "User id"
+          },
+          "preference": {
+            "type": "string",
+            "description": "Preference of user",
+            "example": "Furniture",
+            "enum": [
+              "Furniture",
+              "Music",
+              "Clothing",
+              "Hardware",
+              "Jewellery"
+            ]
+          }
+        },
+        "required": [
+          "userId",
+          "preference"
+        ]
+      }
+    }
+  }
+}
